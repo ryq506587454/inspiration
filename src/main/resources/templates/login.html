@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/login.css"/>
+</head>
+<body class="drag">
+<div id="login">
+    <h1>ShareBike</h1>
+    <input type="text" id="phone"></input>
+    <input type="password" id="password"></input>
+    <button class="butt" id="userLogin">登录</button>
+    <button class="butt" id="register" style="margin-top: 10px;">注册</button>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.js" ></script>
+<script type="text/javascript" th:inline="javascript">
+    $("#userLogin").click(function () {
+        login($("#phone").val(),$("#password").val())
+    })
+    $("#register").click(function () {
+        window.location.href = "register"
+    })
+
+    function login(name,password) {
+        $.ajax({
+            type:"post",
+            url:"/user/login",
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify({
+                name:name,
+                password:password
+            }),
+            success:function (result) {
+                if(result == 0){
+                    console.log("登录失败")
+                }else{
+                    console.log("登陆成功")
+                    window.location.href = "index"
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>
