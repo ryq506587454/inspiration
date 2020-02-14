@@ -8,7 +8,7 @@
 </head>
 <body class="drag">
 <div id="login">
-    <h1>ShareBike</h1>
+    <h1>Inspiration</h1>
     <input type="text" id="phone"></input>
     <input type="password" id="password"></input>
     <button class="butt" id="userLogin">登录</button>
@@ -35,8 +35,10 @@
             }),
             success:function (result) {
                 if(result == 0){
+                    alert("登录失败")
                     console.log("登录失败")
                 }else{
+                    alert("登陆成功")
                     console.log("登陆成功")
                     window.location.href = "index"
                 }

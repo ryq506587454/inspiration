@@ -1,46 +1,22 @@
 package com.ryq.inspiration.pojo;
 
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class User {
-    public User() {
-    }
-
-    public User(Integer id, String password) {
-        this.id = id;
-        this.password = password;
-    }
-
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
-    }
 
     private Integer id;
 
+    @NonNull
     private String name;
 
+
+    @NonNull
     private String password;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public User(String name) {
+        this.name = name;
     }
 }

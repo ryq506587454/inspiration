@@ -15,7 +15,7 @@ public class UserServiceTest {
     private UserServiceImp userServiceImp;
     @Test
     public void Login(){
-        User record = new User(1,"888888");
+        User record = new User("1","888888");
         User user = userServiceImp.login(record);
         if (user != null){
             System.out.println(user.getName());

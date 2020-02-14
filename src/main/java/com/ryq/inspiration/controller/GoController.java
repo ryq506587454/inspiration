@@ -11,6 +11,10 @@ public class GoController {
     public String hello(){return "hello";}
     @RequestMapping(value = "login")
     public String login(){return "login";}
+    @RequestMapping(value = "uploadStatus")
+    public String uploadSuccess(){
+        return "uploadStatus";
+    }
 
 }
 

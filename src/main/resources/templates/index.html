@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <!--<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />-->
     <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body>
-<p id="userName">null
-</p>
+<div class="container" style="text-align: center">
+    <div class="jumbotron" style="text-align: center">
+        <h1 th:text="${session.userInfo ne null} ? '欢迎你,'+${session.userInfo.name} : 'Inspiration'" ></h1>
+        <h2 th:text="'SpringBoot UploadFile Example'"></h2>
+        <label for="uploadFile">上传文件</label>
+        <input type="file" id="uploadFile"/>
+        <input type="button" class="btn btn-default" id="upload" value="upload"/>
+    </div>
+</div>
+
 <script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
     var userInfo = /*[[${session.userInfo}]]*/ null;
@@ -16,8 +26,26 @@
         window.location.href = "login"
     }else{
         console.log(userInfo)
-        $("#userName").text(userInfo.name)
-
+    }
+    $("#upload").click(function () {
+        var type="file"
+        var formData = new FormData()
+        formData.append(type, $("#uploadFile")[0].files[0])
+        upload(formData)
+    })
+    function upload(data) {
+        $.ajax({
+            type:"POST",
+            url:"/user/upload",
+            data:data,
+            cache: false,
+            contentType:false,
+            enctype: "multipart/form-data",
+            processData: false,
+            success:function (result) {
+                console.log(result)
+            }
+        })
     }
     /*]]>*/
 </script>
