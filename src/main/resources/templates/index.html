@@ -7,12 +7,15 @@
 </head>
 <body>
 <div class="container" style="text-align: center">
-    <div class="jumbotron" style="text-align: center">
+    <div class="jumbotron row" style="text-align: center">
         <h1 th:text="${session.userInfo ne null} ? '欢迎你,'+${session.userInfo.name} : 'Inspiration'" ></h1>
         <h2 th:text="'SpringBoot UploadFile Example'"></h2>
-        <label for="uploadFile">上传文件</label>
-        <input type="file" id="uploadFile"/>
-        <input type="button" class="btn btn-default" id="upload" value="upload"/>
+        <div class="form-group col-md-offset-4 col-md-4 " style="border-color: black">
+            <label for="UserProfilePicture">上传头像</label>
+            <input type="file" accept="image/*" id = "UserProfilePicture">
+            <p class="help-block">请选择您要上传的头像</p>
+            <input type="button" class="btn btn-default col-md-offset-4 col-md-4" value="提交" onclick="uploadUserImage()">
+        </div>
     </div>
 </div>
 
@@ -22,26 +25,22 @@
     /*<![CDATA[*/
     var userInfo = /*[[${session.userInfo}]]*/ null;
     if(userInfo == null){
-        alert("请先登录")
+        alert("请先登录");
         window.location.href = "login"
     }else{
         console.log(userInfo)
     }
-    $("#upload").click(function () {
-        var type="file"
-        var formData = new FormData()
-        formData.append(type, $("#uploadFile")[0].files[0])
-        upload(formData)
-    })
-    function upload(data) {
+    function uploadUserImage() {
+        formData = new FormData();
+        formData.append("UPP", $("#UserProfilePicture")[0].files[0]);
         $.ajax({
             type:"POST",
             url:"/user/upload",
-            data:data,
-            cache: false,
             contentType:false,
-            enctype: "multipart/form-data",
-            processData: false,
+            cache:false,
+            data:formData,
+            enctype:"multipart/form-data",
+            processData:false,
             success:function (result) {
                 console.log(result)
             }
