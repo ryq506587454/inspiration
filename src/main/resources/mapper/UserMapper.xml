@@ -5,9 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, password
+    id, name, password, image
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -15,22 +16,15 @@
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByUserIdPSW" parameterType="com.ryq.inspiration.pojo.User" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from user
-    where
-    name = #{name,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ryq.inspiration.pojo.User">
-    insert into user (id, name, password
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
-      )
+    insert into user (id, name, password, 
+      image)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ryq.inspiration.pojo.User">
     insert into user
@@ -44,6 +38,9 @@
       <if test="password != null">
         password,
       </if>
+      <if test="image != null">
+        image,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -54,6 +51,9 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -66,13 +66,24 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ryq.inspiration.pojo.User">
     update user
     set name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
+      password = #{password,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--self-->
+  <select id="selectByUserIdPSW" parameterType="com.ryq.inspiration.pojo.User" resultMap="BaseResultMap">
+   select
+   <include refid="Base_Column_List" />
+    from user
+    where password=#{password,jdbcType=VARCHAR} and id=#{id, jdbcType=INTEGER}
+  </select>
 </mapper>

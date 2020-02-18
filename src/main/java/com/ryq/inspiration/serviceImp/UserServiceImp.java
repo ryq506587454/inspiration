@@ -18,24 +18,29 @@ public class UserServiceImp implements UserService {
     private UserMapper userMapper;
     @Override
     public User login(User record) {
-        User user = userMapper.selectByUserIdPSW(record);
-        return user;
+        return userMapper.selectByUserIdPSW(record);
     }
 
     @Override
     public int Register(User record) {
-        int result = userMapper.insert(record);
-        return result;
+        return userMapper.insert(record);
     }
 
     @Override
-    public String upLoadUserImage(MultipartFile file, String uploadPath) {
+    public String upLoadUserImage(MultipartFile file, String uploadPath,User record) {
         try {
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(uploadPath);
+            if (!Files.exists(Paths.get(uploadPath))){
+                Files.createDirectory(Paths.get(uploadPath));
+            }
+            String UserImage = uploadPath+"//"+file.getOriginalFilename();
+            Path path = Paths.get(UserImage);
             Files.write(path,bytes);
+            record.setImage(UserImage);;
+            userMapper.updateByPrimaryKeySelective(record);
             return "上传成功";
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             return e.getMessage();
         }
 

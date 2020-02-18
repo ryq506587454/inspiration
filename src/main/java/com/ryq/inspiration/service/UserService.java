@@ -6,5 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface UserService {
     User login(User record);
     int Register(User record);
-    String upLoadUserImage(MultipartFile file, String path);
+    String upLoadUserImage(MultipartFile file, String path , User record);
 }

@@ -11,9 +11,9 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer id);
 
-    User selectByUserIdPSW(User record);
-
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User selectByUserIdPSW(User record);
 }

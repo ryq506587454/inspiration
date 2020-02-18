@@ -9,7 +9,7 @@
 <body class="drag">
 <div id="login">
     <h1>Inspiration</h1>
-    <input type="text" id="phone"></input>
+    <input type="text" id="userId"></input>
     <input type="password" id="password"></input>
     <button class="butt" id="userLogin">登录</button>
     <button class="butt" id="register" style="margin-top: 10px;">注册</button>
@@ -18,19 +18,19 @@
 <script src="/js/bootstrap.js" ></script>
 <script type="text/javascript" th:inline="javascript">
     $("#userLogin").click(function () {
-        login($("#phone").val(),$("#password").val())
+        login($("#userId").val(),$("#password").val())
     })
     $("#register").click(function () {
         window.location.href = "register"
     })
 
-    function login(name,password) {
+    function login(id,password) {
         $.ajax({
             type:"post",
             url:"/user/login",
             contentType: "application/json;charset=utf-8",
             data:JSON.stringify({
-                name:name,
+                id:id,
                 password:password
             }),
             success:function (result) {

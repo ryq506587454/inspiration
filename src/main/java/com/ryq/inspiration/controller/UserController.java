@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ryq.inspiration.pojo.User;
 import com.ryq.inspiration.serviceImp.UserServiceImp;
-import com.ryq.inspiration.util.Utillist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +20,7 @@ public class UserController {
     @ResponseBody
     public String login(@RequestBody JSONObject data, HttpSession session){
         User user = JSON.toJavaObject(data,User.class);
+        System.out.println(user.toString());
         User record = userServiceImp.login(user);
         if (record == null){
             return "0";
@@ -37,8 +37,9 @@ public class UserController {
         if (file.isEmpty()){
             msg = "上传失败,请检查文件是否存在";
         }
-        String path = UPLOADED_FOLDER+user.getId()+"_"+file.getOriginalFilename();
-        msg = userServiceImp.upLoadUserImage(file,path);
+        String path = UPLOADED_FOLDER+user.getId();
+        msg = userServiceImp.upLoadUserImage(file,path,user);
+        session.setAttribute("userInfo",userServiceImp.login(user));
         return msg;
     }
 
