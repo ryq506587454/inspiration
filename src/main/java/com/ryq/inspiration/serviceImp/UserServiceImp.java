@@ -29,18 +29,19 @@ public class UserServiceImp implements UserService {
     @Override
     public String upLoadUserImage(MultipartFile file, String uploadPath,User record) {
         try {
-            byte[] bytes = file.getBytes();
             if (!Files.exists(Paths.get(uploadPath))){
-                Files.createDirectory(Paths.get(uploadPath));
+                System.out.println(1234);
+                Files.createDirectories(Paths.get(uploadPath));
             }
-            String UserImage = uploadPath+"//"+file.getOriginalFilename();
+            byte[] bytes = file.getBytes();
+            String UserImage = uploadPath+file.getOriginalFilename();
             Path path = Paths.get(UserImage);
             Files.write(path,bytes);
-            record.setImage(UserImage);;
+            record.setImage("img/"+record.getId()+"/"+file.getOriginalFilename());
             userMapper.updateByPrimaryKeySelective(record);
             return "上传成功";
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return e.getMessage();
         }
 

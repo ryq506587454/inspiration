@@ -37,8 +37,8 @@ public class UserController {
         if (file.isEmpty()){
             msg = "上传失败,请检查文件是否存在";
         }
-        String path = UPLOADED_FOLDER+user.getId();
-        msg = userServiceImp.upLoadUserImage(file,path,user);
+        String path = session.getServletContext().getRealPath("img/"+user.getId()+"/");
+        msg = userServiceImp.upLoadUserImage(file, path, user);
         session.setAttribute("userInfo",userServiceImp.login(user));
         return msg;
     }
