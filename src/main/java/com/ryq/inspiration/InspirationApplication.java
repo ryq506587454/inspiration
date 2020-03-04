@@ -16,6 +16,8 @@ public class InspirationApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(InspirationApplication.class, args);
+        // System.setProperty("tomcat.util.http.parser.HttpParser.requestTargetAllow","|{}");
+
     }
     // Tomcat large file upload connection reset
     // 解决tomcat上传超过10MB的文件时候断链的情况

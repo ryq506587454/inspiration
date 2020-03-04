@@ -1,7 +1,9 @@
 package com.ryq.inspiration.dao;
 
 import com.ryq.inspiration.pojo.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 

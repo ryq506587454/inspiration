@@ -38,7 +38,7 @@
         formData.append("UPP", $("#UserProfilePicture")[0].files[0]);
         $.ajax({
             type:"POST",
-            url:"/user/upload",
+            url:"/users/upload",
             contentType:false,
             cache:false,
             data:formData,

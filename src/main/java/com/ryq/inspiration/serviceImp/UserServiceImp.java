@@ -12,9 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@Service
+@Service("userService")
 public class UserServiceImp implements UserService {
-    @Autowired(required = false)
+    @Autowired
     private UserMapper userMapper;
     @Override
     public User login(User record) {

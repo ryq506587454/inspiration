@@ -26,8 +26,8 @@
 
     function login(id,password) {
         $.ajax({
-            type:"post",
-            url:"/user/login",
+            type:"POST",
+            url:"/users/login",
             contentType: "application/json;charset=utf-8",
             data:JSON.stringify({
                 id:id,
