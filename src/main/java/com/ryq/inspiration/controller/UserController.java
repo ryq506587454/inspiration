@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
+
 
 @Api(value = "用户", description = "用户的相关操作", protocols="https,http")
 @Controller
@@ -26,6 +26,7 @@ public class UserController {
     private UserServiceImp userServiceImp;
     @Autowired
     private RedisUtil redisUtil;
+
 
 
     @ApiOperation(value = "登录",notes = "实现用户的登陆功能")
@@ -90,6 +91,5 @@ public class UserController {
     public String getUserName(@PathVariable(name = "key") String key){
         return JSON.toJSONString(redisUtil.get("user-"+key),true);
     }
-
 
 }
